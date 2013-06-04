@@ -22,7 +22,7 @@
   which can be invoked later to perform the fetch.
 }
 \examples{
-deferred_request <- httr:::make_request_deferred(method="GET",handle=handle$handle,url=handle$url) -> X
+deferred_request <- httr:::make_request_deferred(method="GET",handle=handle$handle,url=handle$url)
 curlPerform(curl=deferred_request$curl)
 deferred_request$response()
 }

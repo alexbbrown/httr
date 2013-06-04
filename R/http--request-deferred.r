@@ -12,7 +12,7 @@
 #'   config after the request is made.
 #' 
 #' @examples
-#' deferred_request <- httr:::make_request_deferred(method="GET",handle=handle$handle,url=handle$url) -> X
+#' deferred_request <- httr:::make_request_deferred(method="GET",handle=handle$handle,url=handle$url)
 #' curlPerform(curl=deferred_request$curl)
 #' deferred_request$response()
 make_request_deferred <- function(method, handle, url, ..., config = list()) {
@@ -61,14 +61,16 @@ make_request_deferred <- function(method, handle, url, ..., config = list()) {
 
   is_post <- isTRUE(attr(action_config, "post"))
   if (is_post) {
-		stop("POST not supported yet")
+		warning("POST not fully supported yet")
     body <- attr(action_config, "body")
-    style <- attr(action_config, "style")
-    .postForm(handle$handle, curl_opts, body, style)
+    style <- attr(action_config, "style") # ignored for now - see httppost
+		curlSetOpt(curl=handle$handle, .opts = curl_opts$values, httppost = TRUE, postfields = body)
+    #.postForm(handle$handle, curl_opts, body, style)
     # reset configuration after post - again not sure how
     # this fits, but it certainly must.
-    curlSetOpt(httppost = NULL, post = NULL, postfields = NULL,
-      curl = handle$handle)
+		warning("POST not fully supported yet - do not re-use handle")
+    #curlSetOpt(httppost = NULL, post = NULL, postfields = NULL,
+    #  curl = handle$handle)
   } else {
     curlSetOpt(curl = handle$handle, .opts = curl_opts$values)
   }
