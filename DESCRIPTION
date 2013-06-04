@@ -60,3 +60,5 @@ Collate:
     'media-parse.r'
     'response-status.r'
     'hmac.r'
+    'http--request-deferred.r'
+    'http-get-deferred.r'
