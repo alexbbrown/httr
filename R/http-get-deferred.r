@@ -5,6 +5,7 @@
 #' response is a continuation function processing the response from
 #' a completed request
 #'
+#' @export
 #' @examples
 #' google_later <- GET_deferred("http://www.google.com")
 #' curlPerform(curl=google_later$curl)
