@@ -64,7 +64,7 @@ make_request_deferred <- function(method, handle, url, ..., config = list()) {
 		warning("POST not fully supported yet")
     body <- attr(action_config, "body")
     style <- attr(action_config, "style") # ignored for now - see httppost
-		curlSetOpt(curl=handle$handle, .opts = curl_opts$values, httppost = TRUE, postfields = body)
+		curlSetOpt(curl=handle$handle, .opts = curl_opts$values, postfields=body)
     #.postForm(handle$handle, curl_opts, body, style)
     # reset configuration after post - again not sure how
     # this fits, but it certainly must.

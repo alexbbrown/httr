@@ -1,6 +1,9 @@
 #' construct a deferred POST of a file (or body or form) to a server.
 #'
 #' Haven't tested files yet.  Body as list doesn't work right.
+#' 
+#' Body as list is beta - ish.  leave multipart to false - RCurl can't do the
+#' right setOptions for httppost right now.
 #'
 #' @inheritParams GET_deferred
 #' @param body Use \code{NULL} for an empty body, a length-one character or
@@ -26,8 +29,9 @@
 #' lapply(deferred_posts,function(a_post)push(multi,a_post$curl))
 #' curlMultiPerform(multi)
 #' lapply(deferred_posts,function(a_post)content(a_post$response())$data)
-POST_deferred <- function(url = NULL, config = list(), body = NULL, multipart = TRUE, ..., handle = NULL) {
+POST_deferred <- function(url = NULL, config = list(), body = NULL, multipart = FALSE, ..., handle = NULL) {
   hu <- handle_url(handle, url, ...)
+
   make_request_deferred("post", hu$handle, hu$url, body = body,
     multipart = multipart, config = config)
 }
