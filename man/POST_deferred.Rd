@@ -3,7 +3,7 @@
 \title{construct a deferred POST of a file (or body or form) to a server.}
 \usage{
   POST_deferred(url = NULL, config = list(), body = NULL,
-    multipart = TRUE, ..., handle = NULL)
+    multipart = FALSE, ..., handle = NULL)
 }
 \arguments{
   \item{body}{Use \code{NULL} for an empty body, a
@@ -22,6 +22,11 @@
 \description{
   Haven't tested files yet.  Body as list doesn't work
   right.
+}
+\details{
+  Body as list is beta - ish.  leave multipart to false -
+  RCurl can't do the right setOptions for httppost right
+  now.
 }
 \examples{
 deferred_post<-POST_deferred("http://httpbin.org/",path="post",body="foo")
