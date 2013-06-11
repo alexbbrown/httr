@@ -72,7 +72,7 @@ make_request_deferred <- function(method, handle, url, ..., config = list()) {
     #curlSetOpt(httppost = NULL, post = NULL, postfields = NULL,
     #  curl = handle$handle)
   } else {
-    curlSetOpt(curl = handle$handle, .opts = curl_opts$values, .isProtected=TRUE)
+    curlSetOpt(curl = handle$handle, .opts = curl_opts$values) #, .isProtected=TRUE)
   }
 
 	return( 
