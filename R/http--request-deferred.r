@@ -57,14 +57,14 @@ make_request_deferred <- function(method, handle, url, ..., config = list()) {
   #on.exit(reset_handle_config(handle, opts))
 
   # Perform request and capture output ---------------------------------------
-  curl_opts <- curlSetOpt(curl = NULL, .opts = opts)
+  curl_opts <- curlSetOpt(curl = NULL, .opts = opts)#, .isProtected=TRUE)
 
   is_post <- isTRUE(attr(action_config, "post"))
   if (is_post) {
 		warning("POST not fully supported yet")
     body <- attr(action_config, "body")
     style <- attr(action_config, "style") # ignored for now - see httppost
-		curlSetOpt(curl=handle$handle, .opts = curl_opts$values, postfields=body)
+		curlSetOpt(curl=handle$handle, .opts = curl_opts$values, postfields=body, .isProtected=TRUE)
     #.postForm(handle$handle, curl_opts, body, style)
     # reset configuration after post - again not sure how
     # this fits, but it certainly must.
@@ -72,12 +72,13 @@ make_request_deferred <- function(method, handle, url, ..., config = list()) {
     #curlSetOpt(httppost = NULL, post = NULL, postfields = NULL,
     #  curl = handle$handle)
   } else {
-    curlSetOpt(curl = handle$handle, .opts = curl_opts$values)
+    curlSetOpt(curl = handle$handle, .opts = curl_opts$values)#, .isProtected=TRUE)
   }
 
 	return( 
 	  list(
 			curl=handle$handle,
+			config=action_config,
 			response=function() {
 				content <- as(buffer, "raw")
 				info <- last_request(handle)
