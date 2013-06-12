@@ -9,7 +9,7 @@ parse_text <- function(content, type = NULL, encoding = NULL) {
   }
 
   # destroy embedded nulls
-	if (any(x==0)) x<-x[x!=0]
+	if (any(content==0)) content<-content[content!=0]
 
   iconv(rawToChar(content), from = encoding, to = "UTF-8")
 }
