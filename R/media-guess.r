@@ -21,11 +21,8 @@ guess_media_url <- function(x) {
 }
 
 cache_media <- function() {
-  url <- "http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types"
-  tbl <- scan(url, character(1), comment.char = "#", sep = "\n", quiet = TRUE)
-  pieces <- str_split(tbl, "\\s+")
-
-  make_lookup <- function(x) setNames(rep(x[1], length(x) - 1), x[-1])
-  ext_media <- unlist(lapply(pieces, make_lookup), recursive = FALSE)
+  url <- "http://www.stdicon.com/mimetypes"
+	ext_media <- unlist(RJSONIO::fromJSON(url))
+	names(ext_media) <- gsub("^.","",names(ext_media))
   save(ext_media, file = "R/sysdata.rda")
 }
